@@ -8,37 +8,36 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entidad.Jugador;
+import entidad.Mueble;
 import model.JugadorModel;
+import model.MuebleModel;
 
 /**
- * Servlet implementation class JugadorControlador
+ * Servlet implementation class MuebleControlador
  */
 @WebServlet("/insertaMueble")
-public class JugadorControlador extends HttpServlet {
+public class MuebleControlador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	
+	/**
+	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		try {
 			//1 Recibe los parámetros
 			//Son los nombres de las caja de textos en el JSP
-			String nom = request.getParameter("nombre");
-			String ali = request.getParameter("alias");
-			String pai = request.getParameter("pais");
-			String jueg = request.getParameter("juego");
-			String exp = request.getParameter("experiencia");
-			
+			String precio = request.getParameter("precio");
+			String stock = request.getParameter("stock");
+		
 			//2 Se crea el objeto Alumno
-			Jugador obj = new Jugador();
-			obj.setNombre(nom);
-			obj.setAlias(ali);
-			obj.setPais(pai);
-			obj.setJuego(jueg);
-			obj.setExperiencia(Integer.parseInt(exp));
+			Mueble obj = new Mueble();
+			obj.setPrecio(Integer.parseInt(precio));
+			obj.setStock(Integer.parseInt(stock));
 			
-			JugadorModel m = new JugadorModel();
-			int s = m.insertaJugador(obj);
+			
+		MuebleModel m = new MuebleModel();
+			int s = m.insertaMueble(obj);
 			if (s>0)
 				request.getSession().setAttribute("MENSAJE", "registro exitoso");
 			else
@@ -51,5 +50,5 @@ public class JugadorControlador extends HttpServlet {
 			response.sendRedirect("registraJugador.jsp");
 		}
 	}
+	}
 
-}
